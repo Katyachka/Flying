@@ -12,21 +12,29 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from environs import Env
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+# Environs configuration
+
+env = Env()
+env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-z#_jh3z&()_emi%ibmb9cc#m+1+bzxn3&@hjvkfv&kf%ow8$i='
+SECRET_KEY = env.str('DJANGO_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+BOT_TOKEN = env.str('BOT_TOKEN')
 
 # Application definition
 
@@ -37,6 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'bot.apps.botapp',
+    'bot.apps.bot_management'
 ]
 
 MIDDLEWARE = [
@@ -73,10 +84,12 @@ WSGI_APPLICATION = 'bot.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DB_NAME = env.str("DB_NAME")
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / f"{DB_NAME}.sqlite3",
     }
 }
 
