@@ -19,7 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Environs configuration
-
 env = Env()
 env.read_env()
 
