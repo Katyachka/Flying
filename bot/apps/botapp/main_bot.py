@@ -2,6 +2,7 @@ from telebot.async_telebot import AsyncTeleBot
 
 from django.conf import settings
 
+from bot.apps.botapp.bot_callbacks import CALLBACK_HANDLER_CHAIN
 from bot.apps.botapp.bot_handlers import HANDLER_CHAIN
 
 bot = AsyncTeleBot(token=settings.BOT_TOKEN, parse_mode='Markdown')
@@ -22,3 +23,8 @@ async def send_help(message):
 @bot.message_handler(func=lambda message: True)
 async def handle_message(message):
     await HANDLER_CHAIN.handle_message(message, bot)
+
+
+@bot.callback_query_handler(func=lambda callback: True)
+async def callback_handler(callback):
+    await CALLBACK_HANDLER_CHAIN.handle_callback(callback, bot)

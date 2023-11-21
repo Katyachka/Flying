@@ -1,0 +1,5 @@
+from bot.apps.botapp.bot_callbacks.callback_chain import CallbackHandlerChain
+from bot.apps.botapp.bot_callbacks.personal_data_menu_callback_handler import PersonalDataMenuCallbackHandler
+
+CALLBACK_HANDLER_CHAIN = CallbackHandlerChain()
+CALLBACK_HANDLER_CHAIN.add_callback_handler(PersonalDataMenuCallbackHandler())
